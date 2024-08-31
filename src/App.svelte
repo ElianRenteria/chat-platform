@@ -1,12 +1,23 @@
 <script>
-  import Counter from './lib/Counter.svelte'
+  import { Router, Route, Link } from 'svelte-routing';
+  import Home from './routes/Home.svelte';
+  import Login from './routes/Login.svelte';
+  import Register from './routes/Register.svelte';
+  import Chat from './routes/Chat.svelte';
 </script>
 
-<main>
-  <div >
-    <Counter />
-</main>
+<Router>
+  <nav>
+    <Link to="/">Home</Link>
+    <Link to="/login">Login</Link>
+    <Link to="/signup">Signup</Link>
+    <Link to="/app">App</Link>
+  </nav>
 
-<style>
-  
-</style>
+  <main>
+    <Route path="/" component={Home} exact />
+    <Route path="/login" component={Login} />
+    <Route path="/register" component={Register} />
+    <Route path="/chat" component={Chat} />
+  </main>
+</Router>

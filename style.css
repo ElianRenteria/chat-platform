@@ -12,9 +12,11 @@ body {
 }
 
 * {
-    font-family: "Roboto", sans-serif;
+    font-family: "Nerko One", cursive;
     margin: 0;
     line-height: calc(1em + 0.5rem);
+    font-weight: 400;
+    font-style: normal;
 }
 
 img, picture, video, canvas, svg {
