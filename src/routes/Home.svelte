@@ -1,12 +1,17 @@
-<h1>Home Page</h1>
-<p>Welcome to the Home page!</p>
+<div class="w-full h-full flex flex-col justify-center items-center">
+    <h1>Home Page</h1>
+    <p>Welcome to the Home page!</p>
+</div>
+
+
+
+
+
 
 <script>
-    // Your Home page logic
 </script>
 
 <style>
-    /* Your Home page styles */
     h1 {
         font-size: 4rem;
     }
