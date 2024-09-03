@@ -1,6 +1,6 @@
 
-<h1>Registration Page</h1>
-<p>Welcome to the Login page!</p>
+<h1>Registration</h1>
+<p>Create Account!</p>
 <div class="container">
     <div class="inputs">
         <input type="text" placeholder="Username" bind:value={username}/>
@@ -8,7 +8,7 @@
         <input type="password" placeholder="Confirm Password"bind:value={confirmPassword}/>
     </div>
     <div class="submit__button">
-        <button on:click={register}>Login</button>
+        <button on:click={register}>Create</button>
     </div>
 </div>
 
@@ -60,5 +60,9 @@
         width: 50% !important;
         min-width: 300px;
         max-width: 600px;
+    }
+    button {
+        padding-left: 2rem;
+        padding-right: 2rem;
     }
 </style>

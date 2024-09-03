@@ -1,37 +1,29 @@
-
-<h1>Login Page</h1>
-<p>Welcome to the Login page!</p>
+<h1>Login</h1>
+<p>Welcome Back!</p>
 <div class="container">
     <div class="inputs">
         <input type="text" placeholder="Username" bind:value={username}/>
-        <input type="password" placeholder="Password"bind:value={password}/>
+        <input type="password" placeholder="Password" bind:value={password}/>
     </div>
     <div class="submit__button">
         <button on:click={authenticate}>Login</button>
     </div>
 </div>
 
-
-
-
 <script>
     import { pb } from '../stores';
+    import { navigate } from 'svelte-routing';
 
     let username = '';
     let password = '';
 
     async function authenticate() {
-        const authData = await pb.collection('users').authWithPassword(
-            username,
-            password
-        );
-
-        console.log(pb.authStore.isValid);
-        console.log(pb.authStore.token);
-        console.log(pb.authStore.model.id);
-
-        // "logout" the last authenticated account
-        pb.authStore.clear();
+        try {
+            const authData = await pb.collection('users').authWithPassword(username, password);
+            navigate('/chat', { replace: true });
+        } catch (error) {
+            console.error('Authentication failed:', error);
+        }
     }
 </script>
 
@@ -60,5 +52,9 @@
         width: 50% !important;
         min-width: 300px;
         max-width: 600px;
+    }
+    button {
+        padding-left: 2rem;
+        padding-right: 2rem;
     }
 </style>
