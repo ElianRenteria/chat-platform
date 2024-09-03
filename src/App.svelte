@@ -4,17 +4,18 @@
   import Login from './routes/Login.svelte';
   import Register from './routes/Register.svelte';
   import Chat from './routes/Chat.svelte';
+  import '@picocss/pico'
 </script>
 
 <Router>
-  <div class="h-full w-full flex flex-col justify-start items-center">
-    <nav class="w-full mt-3 flex justify-center gap-3">
+  <div class="container">
+    <nav>
       <Link to="/">Home</Link>
       <Link to="/login">Login</Link>
       <Link to="/signup">Signup</Link>
       <Link to="/app">App</Link>
     </nav>
-    <main class="w-full h-full">
+    <main>
       <Route path="/" component={Home} exact />
       <Route path="/login" component={Login} />
       <Route path="/register" component={Register} />

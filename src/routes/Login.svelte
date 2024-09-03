@@ -1,18 +1,38 @@
-<div class="w-full h-full flex flex-column justify-center items-center">
-    <div class="w-1/3 h-2/3 bg-blue-300 rounded-xl flex flex-col justify-start items-center p-4 gap-3">
-        <h1 class="mt-5">Login Page</h1>
-        <p>Welcome to the Login page!</p>
-        <input type="text" placeholder="Username" class="w-2/3 p-2 border border-gray-300 rounded-lg bg-slate-200 mt-10" />
-        <input type="password" placeholder="Password" class="w-2/3 p-2 border border-gray-300 rounded-lg bg-slate-200 mt-3" />
-        <button class="btn btn-primary mt-3 w-1/3">Login</button>
+
+<div class="container">
+    <h1>Login Page</h1>
+    <p>Welcome to the Login page!</p>
+    <div class="container">
+        <input type="text" placeholder="Username" bind:value={username}/>
+        <input type="password" placeholder="Password"bind:value={password}/>
+        <button on:click={authenticate}>Login</button>
     </div>
 </div>
 
 
 
-
 <script>
-    
+    import PocketBase from 'pocketbase';
+
+    let username = '';
+    let password = '';
+
+    const pb = new PocketBase('https://elianrenteria.me/pocketbase');
+
+    async function authenticate() {
+        const authData = await pb.collection('users').authWithPassword(
+            username,
+            password
+        );
+
+        // after the above you can also access the auth data from the authStore
+        console.log(pb.authStore.isValid);
+        console.log(pb.authStore.token);
+        console.log(pb.authStore.model.id);
+
+        // "logout" the last authenticated account
+        pb.authStore.clear();
+    }
 </script>
 
 <style>
