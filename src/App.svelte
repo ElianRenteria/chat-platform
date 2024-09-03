@@ -5,21 +5,30 @@
   import Register from './routes/Register.svelte';
   import Chat from './routes/Chat.svelte';
   import '@picocss/pico'
+
+  let currentTheme = 'dark';
+  function toggleTheme() {
+    currentTheme = currentTheme === 'light' ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', currentTheme);
+  }
 </script>
 
 <Router>
-  <div class="container">
+  <header>
     <nav>
       <Link to="/">Home</Link>
       <Link to="/login">Login</Link>
-      <Link to="/signup">Signup</Link>
+      <Link to="/register">Register</Link>
       <Link to="/app">App</Link>
+      <button on:click={toggleTheme}>Toggle</button>
     </nav>
-    <main>
+  </header>
+  <body>
+    <main class="container">
       <Route path="/" component={Home} exact />
       <Route path="/login" component={Login} />
       <Route path="/register" component={Register} />
       <Route path="/chat" component={Chat} />
     </main>
-  </div>
+  </body>
 </Router>

@@ -1,23 +1,20 @@
 
+<h1>Login Page</h1>
+<p>Welcome to the Login page!</p>
 <div class="container">
-    <h1>Login Page</h1>
-    <p>Welcome to the Login page!</p>
-    <div class="container">
-        <input type="text" placeholder="Username" bind:value={username}/>
-        <input type="password" placeholder="Password"bind:value={password}/>
-        <button on:click={authenticate}>Login</button>
-    </div>
+    <input type="text" placeholder="Username" bind:value={username}/>
+    <input type="password" placeholder="Password"bind:value={password}/>
+    <button on:click={authenticate}>Login</button>
 </div>
 
 
 
+
 <script>
-    import PocketBase from 'pocketbase';
+    import { pb } from '../stores';
 
     let username = '';
     let password = '';
-
-    const pb = new PocketBase('https://elianrenteria.me/pocketbase');
 
     async function authenticate() {
         const authData = await pb.collection('users').authWithPassword(
@@ -25,7 +22,6 @@
             password
         );
 
-        // after the above you can also access the auth data from the authStore
         console.log(pb.authStore.isValid);
         console.log(pb.authStore.token);
         console.log(pb.authStore.model.id);
@@ -36,7 +32,6 @@
 </script>
 
 <style>
-    /* Your Home page styles */
     h1 {
         font-size: 4rem;
     }
