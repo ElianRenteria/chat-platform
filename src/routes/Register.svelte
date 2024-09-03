@@ -2,10 +2,14 @@
 <h1>Registration Page</h1>
 <p>Welcome to the Login page!</p>
 <div class="container">
-    <input type="text" placeholder="Username" bind:value={username}/>
-    <input type="password" placeholder="Password"bind:value={password}/>
-    <input type="password" placeholder="Confirm Password"bind:value={confirmPassword}/>
-    <button on:click={register}>Login</button>
+    <div class="inputs">
+        <input type="text" placeholder="Username" bind:value={username}/>
+        <input type="password" placeholder="Password"bind:value={password}/>
+        <input type="password" placeholder="Confirm Password"bind:value={confirmPassword}/>
+    </div>
+    <div class="submit__button">
+        <button on:click={register}>Login</button>
+    </div>
 </div>
 
 
@@ -34,9 +38,27 @@
 <style>
     h1 {
         font-size: 4rem;
+        text-align: center;
     }
     p {
         font-size: 2rem;
         font-weight: 300;
+        text-align: center;
+    }
+    .submit__button {
+        display: flex;
+        justify-content: center;
+    }
+    .inputs {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 2rem;
+        gap: 1rem;
+    }
+    input {
+        width: 50% !important;
+        min-width: 300px;
+        max-width: 600px;
     }
 </style>
