@@ -11,7 +11,7 @@
 </div>
 
 <script>
-    import { pb } from '../stores';
+    import { pb, user } from '../stores';
     import { navigate } from 'svelte-routing';
 
     let username = '';
@@ -20,6 +20,8 @@
     async function authenticate() {
         try {
             const authData = await pb.collection('users').authWithPassword(username, password);
+            user.set(authData["record"]);
+            console.log('Authenticated:', authData);
             navigate('/chat', { replace: true });
         } catch (error) {
             console.error('Authentication failed:', error);

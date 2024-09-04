@@ -8,7 +8,7 @@
   import '@picocss/pico';
   import { SunMoon } from 'lucide-svelte';
 
-  let currentTheme = 'dark';
+  let currentTheme = 'light';
   function toggleTheme() {
     currentTheme = currentTheme === 'light' ? 'dark' : 'light';
     document.documentElement.setAttribute('data-theme', currentTheme);
