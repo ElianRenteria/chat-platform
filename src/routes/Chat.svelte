@@ -40,7 +40,7 @@
 
     onMount(async () => {
         const records = await pb.collection('messages').getList(1, 50, {
-            sort: '-created',
+            sort: 'created',
             expand: 'user',
         });
         messages = records.items;
