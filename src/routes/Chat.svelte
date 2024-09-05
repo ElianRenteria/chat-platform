@@ -5,13 +5,18 @@
     <div class="container display__messages" bind:this={messageContainer}>
         {#each messages as message (message.id)}
             <div class="message">
-                <p>{message.text}</p>
+                <div class="message__user">
+                    <img src={`https://api.dicebear.com/9.x/bottts-neutral/svg?seed=${message.expand?.user?.username || 'Unknown'}`}  alt="Avatar" width="50" height="auto" class="avatar"/>
+                    <p>
+                        <strong>{message.expand?.user?.username || 'Unknown User'}:</strong> {message.text}
+                    </p>
+                </div>
                 <small>{new Date(message.created).toLocaleTimeString()}</small>
             </div>
         {/each}
     </div>
     <div class="container text__input">
-        <input type="text" placeholder="Message" bind:value={message} />
+        <input type="text" placeholder="Message" bind:value={message} on:keydown={handleKeydown}/>
         <button on:click={sendMessage}>Send</button>
     </div>
 </div>
@@ -33,29 +38,36 @@
         message = '';
     }
 
+    function handleKeydown(event) {
+        if (event.key === 'Enter' && message.trim()) {
+            sendMessage();
+        }
+    }
+
     function logout() {
         pb.authStore.clear();
         location.reload();
     }
 
     onMount(async () => {
+        // Fetch messages with user data expanded
         const records = await pb.collection('messages').getList(1, 50, {
             sort: 'created',
             expand: 'user',
         });
         messages = records.items;
-        pb
-            .collection('messages')
-            .subscribe('*', async ({ action, record }) => {
-                if (action === 'create') {
-                    const usr = await pb.collection('users').getOne(record.user);
-                    record.expand = { user: usr };
-                    messages = [...messages, record];
-                }
-                if (action === 'delete') {
-                    messages = messages.filter((m) => m.id !== record.id);
-                }
-            });
+
+        // Subscribe to real-time changes and add messages with expanded user info
+        pb.collection('messages').subscribe('*', async ({ action, record }) => {
+            if (action === 'create') {
+                const usr = await pb.collection('users').getOne(record.user);
+                record.expand = { user: usr }; // Attach user data to the record
+                messages = [...messages, record]; // Add new message
+            }
+            if (action === 'delete') {
+                messages = messages.filter((m) => m.id !== record.id); // Remove deleted message
+            }
+        });
     });
 
     onDestroy(() => {
@@ -97,4 +109,20 @@
         text-align: right;
         color: #777;
     }
+    .message__user {
+        display: flex;
+        flex-direction: row;
+        justify-content: start;
+        align-items: end;
+        width: 100%;
+        height: 100%;
+    }
+    .message__user p {
+        margin: 0;
+        margin-left: .5rem;
+    }
+    .avatar {
+        border-radius: .25rem;
+    }
 </style>
+
