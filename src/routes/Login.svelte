@@ -41,7 +41,7 @@
             navigate('/chat', { replace: true });
         } catch (err) {
             console.error('Authentication failed:', err);
-            message = 'Login failed: Invalid username or password';
+            message = 'Invalid username or password';
             error = true;
         } finally {
             loading = false; // Hide loading indicator
@@ -81,8 +81,8 @@
     }
     .feedback {
         text-align: center;
-        font-size: 1.5rem;
-        margin-top: 1rem;
+        font-size: 1rem;
+        margin-top: .5rem;
         color: green;
     }
     .feedback.error {

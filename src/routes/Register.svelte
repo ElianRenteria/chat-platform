@@ -49,8 +49,8 @@
             error = false;
             clearInputs();
             navigate('/login', { replace: true });
-        } catch (error) {
-            message = 'Registration failed: ' + error.message;
+        } catch (err) {
+            message = 'Username already exists';
             error = true;
         }
     }
