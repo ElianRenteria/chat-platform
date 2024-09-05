@@ -24,6 +24,8 @@
 <script>
     import { onDestroy, onMount, afterUpdate } from 'svelte';
     import { pb, user } from '../stores';
+    import { navigate } from 'svelte-routing';
+
     let message = '';
     let messages = [];
     let messageContainer;
@@ -46,7 +48,7 @@
 
     function logout() {
         pb.authStore.clear();
-        location.reload();
+        navigate('/', { replace: true });
     }
 
     onMount(async () => {
