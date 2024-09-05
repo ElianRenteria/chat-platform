@@ -1,37 +1,64 @@
-
 <h1>Registration</h1>
 <p>Create Account!</p>
+{#if message}
+    <p class="feedback {error ? 'error' : ''}">{message}</p>
+{/if}
 <div class="container">
     <div class="inputs">
-        <input type="text" placeholder="Username" bind:value={username}/>
-        <input type="password" placeholder="Password"bind:value={password}/>
-        <input type="password" placeholder="Confirm Password"bind:value={confirmPassword}/>
+        <input type="text" placeholder="Username" bind:value={username} />
+        <input type="password" placeholder="Password" bind:value={password} />
+        <input type="password" placeholder="Confirm Password" bind:value={confirmPassword} />
     </div>
     <div class="submit__button">
         <button on:click={register}>Create</button>
     </div>
 </div>
 
-
-
-
 <script>
     import { pb } from '../stores';
+    import { navigate } from 'svelte-routing';
+
     let username = '';
     let password = '';
     let confirmPassword = '';
+    let message = '';
+    let error = false;
 
     async function register() {
-        if (password !== confirmPassword) {
-            alert('Passwords do not match');
+        if (password.length < 8 || password.length > 72) {
+            message = 'Password must be between 8 and 72 characters long';
+            error = true;
             return;
         }
+
+        if (password !== confirmPassword) {
+            message = 'Passwords do not match';
+            error = true;
+            return;
+        }
+
         const data = {
             "username": username,
             "password": password,
             "passwordConfirm": confirmPassword,
         };
-        const record = await pb.collection('users').create(data);
+
+        try {
+            const record = await pb.collection('users').create(data);
+            message = 'Account created successfully!';
+            error = false;
+            clearInputs();
+            navigate('/login', { replace: true });
+        } catch (error) {
+            message = 'Registration failed: ' + error.message;
+            error = true;
+        }
+    }
+
+    function clearInputs() {
+        username = '';
+        password = '';
+        confirmPassword = '';
     }
 </script>
 
@@ -64,5 +91,14 @@
     button {
         padding-left: 2rem;
         padding-right: 2rem;
+    }
+    .feedback {
+        text-align: center;
+        font-size: 1rem;
+        margin-top: 1rem;
+        color: green;
+    }
+    .feedback.error {
+        color: red;
     }
 </style>
