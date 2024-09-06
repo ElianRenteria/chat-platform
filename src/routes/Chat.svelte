@@ -1,8 +1,9 @@
 <main>
     <div class="container">
         <div class="container header__chat">
-            <button on:click={logout} class="chat__logout">logout</button>
+            <button on:click={logout} class="chat__logout outline">logout</button>
         </div>
+        <h1>Chat Room</h1>
         <div class="container display__messages" bind:this={messageContainer}>
             {#each messages as message (message.id)}
                 <div class="message">
@@ -93,7 +94,7 @@
     .text__input {
         display: flex;
         justify-content: center;
-        gap: 1rem;
+        gap: .5rem;
     }
 
     .display__messages {
@@ -141,7 +142,23 @@
         padding-right: 1rem;
         padding-top: .5rem;
         padding-bottom: .5rem;
-        background-color: red;
+        color: rgba(255, 0, 0, 0.76);
+        border-color: rgba(255, 0, 0, 0.76);
+    }
+    .chat__logout:hover {
+        color: rgba(255, 0, 0, 1);
+        border-color: rgba(255, 0, 0, 1);
+        background-color: rgb(230, 230, 230);
+    }
+    .chat__send {
+        padding-top: .75rem;
+        padding-bottom: .75rem;
+        padding-left: 1.25rem;
+        padding-right: 1.25rem;
+        height: 100%;
+    }
+    h1 {
+        text-align: center;
     }
 </style>
 
