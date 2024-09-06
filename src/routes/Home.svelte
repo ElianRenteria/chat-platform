@@ -8,6 +8,11 @@
 
 
 <script>
+    import { onMount } from "svelte";
+    import { currentPath } from "../stores";
+    onMount(() => {
+        currentPath.set("/home");
+    });
 </script>
 
 <style>

@@ -20,8 +20,12 @@
 {/if}
 
 <script>
-    import { pb, user } from '../stores';
+    import { pb, user, currentPath } from '../stores';
     import { navigate } from 'svelte-routing';
+    import { onMount } from "svelte";
+    onMount(() => {
+        currentPath.set("/login");
+    });
 
     let username = '';
     let password = '';

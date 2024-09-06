@@ -15,8 +15,12 @@
 </div>
 
 <script>
-    import { pb } from '../stores';
+    import { pb, currentPath } from '../stores';
     import { navigate } from 'svelte-routing';
+    import { onMount } from "svelte";
+    onMount(() => {
+        currentPath.set("/register");
+    });
 
     let username = '';
     let password = '';

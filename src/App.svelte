@@ -7,23 +7,38 @@
   import ProtectedRoute from './components/ProtectedRoute.svelte';
   import '@picocss/pico';
   import { SunMoon } from 'lucide-svelte';
-
+  import { currentPath } from './stores';
+  let path = '';
+  // Subscribe to the store
+  const unsubscribe = currentPath.subscribe(value => {
+    path = value;
+  });
+  // Cleanup when the component is destroyed
+  import { onDestroy, onMount } from 'svelte';
+  onDestroy(() => {
+    unsubscribe();
+  });
   let currentTheme = 'light';
   function toggleTheme() {
     currentTheme = currentTheme === 'light' ? 'dark' : 'light';
     document.documentElement.setAttribute('data-theme', currentTheme);
   }
+  onMount(() => {
+    
+  });
 </script>
 
 <Router>
-  <header>
-    <nav>
-      <Link to="/">Home</Link>
-      <Link to="/login">Login</Link>
-      <Link to="/register">Register</Link>
-      <button on:click={toggleTheme} class="unstyled"><SunMoon/></button>
-    </nav>
-  </header>
+  {#if path !== '/chat'}
+    <header>
+      <nav>
+        <Link to="/">Home</Link>
+        <Link to="/login">Login</Link>
+        <Link to="/register">Register</Link>
+        <button on:click={toggleTheme} class="unstyled"><SunMoon/></button>
+      </nav>
+    </header>
+  {/if}
   <body>
     <main class="container">
       <Route path="/" let:params>

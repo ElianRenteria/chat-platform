@@ -23,8 +23,11 @@
 
 <script>
     import { onDestroy, onMount, afterUpdate } from 'svelte';
-    import { pb, user } from '../stores';
+    import { pb, user, currentPath } from '../stores';
     import { navigate } from 'svelte-routing';
+    onMount(() => {
+        currentPath.set("/chat");
+    });
 
     let message = '';
     let messages = [];
