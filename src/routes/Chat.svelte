@@ -1,25 +1,27 @@
-<div class="container">
+<main>
     <div class="container">
-        <button on:click={logout}>logout</button>
-    </div>
-    <div class="container display__messages" bind:this={messageContainer}>
-        {#each messages as message (message.id)}
-            <div class="message">
-                <div class="message__user">
-                    <img src={`https://api.dicebear.com/9.x/bottts-neutral/svg?seed=${message.expand?.user?.username || 'Unknown'}`}  alt="Avatar" width="50" height="auto" class="avatar"/>
-                    <p>
-                        <strong>{message.expand?.user?.username || 'Unknown User'}:</strong> {message.text}
-                    </p>
+        <div class="container header__chat">
+            <button on:click={logout} class="chat__logout">logout</button>
+        </div>
+        <div class="container display__messages" bind:this={messageContainer}>
+            {#each messages as message (message.id)}
+                <div class="message">
+                    <div class="message__user">
+                        <img src={`https://api.dicebear.com/9.x/bottts-neutral/svg?seed=${message.expand?.user?.username || 'Unknown'}`}  alt="Avatar" width="50" height="auto" class="avatar"/>
+                        <p>
+                            <strong>{message.expand?.user?.username || 'Unknown User'}:</strong> {message.text}
+                        </p>
+                    </div>
+                    <small>{new Date(message.created).toLocaleTimeString()}</small>
                 </div>
-                <small>{new Date(message.created).toLocaleTimeString()}</small>
-            </div>
-        {/each}
+            {/each}
+        </div>
+        <div class="container text__input">
+            <input type="text" placeholder="Message" bind:value={message} on:keydown={handleKeydown}/>
+            <button on:click={sendMessage} class="chat__send">Send</button>
+        </div>
     </div>
-    <div class="container text__input">
-        <input type="text" placeholder="Message" bind:value={message} on:keydown={handleKeydown}/>
-        <button on:click={sendMessage}>Send</button>
-    </div>
-</div>
+</main>
 
 <script>
     import { onDestroy, onMount, afterUpdate } from 'svelte';
@@ -128,6 +130,18 @@
     }
     .avatar {
         border-radius: .25rem;
+    }
+    .header__chat {
+        display: flex;
+        justify-content: end;
+        margin-bottom: 2rem;
+    }
+    .chat__logout {
+        padding-left: 1rem;
+        padding-right: 1rem;
+        padding-top: .5rem;
+        padding-bottom: .5rem;
+        background-color: red;
     }
 </style>
 
