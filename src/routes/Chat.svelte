@@ -1,4 +1,4 @@
-<main>
+<main class="main__container">
     <div class="container">
         <div class="container header__chat">
             <button on:click={logout} class="chat__logout outline">logout</button>
@@ -98,7 +98,7 @@
     }
 
     .display__messages {
-        max-height: 400px;
+        max-height: 60vh;
         overflow-y: auto;
         padding: 1rem;
         border: 1px solid #ccc;
@@ -159,6 +159,9 @@
     }
     h1 {
         text-align: center;
+    }
+    .main__container {
+        height: 100vh;
     }
 </style>
 
