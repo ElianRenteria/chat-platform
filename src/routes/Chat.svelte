@@ -98,7 +98,7 @@
     }
 
     .display__messages {
-        max-height: 450px;
+        max-height: 400px;
         overflow-y: auto;
         padding: 1rem;
         border: 1px solid #ccc;
