@@ -98,11 +98,17 @@
     }
 
     .display__messages {
-        max-height: 60vh;
+        max-height: 450px;
         overflow-y: auto;
         padding: 1rem;
         border: 1px solid #ccc;
         margin-bottom: 1rem;
+    }
+
+    @media (min-width: 768px) {
+        .display__messages {
+            max-height: 60vh;
+        }
     }
 
     .message {
