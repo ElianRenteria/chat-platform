@@ -1,4 +1,4 @@
-<h1>Registration</h1>
+<h1>Register</h1>
 <p>Create Account!</p>
 {#if message}
     <p class="feedback {error ? 'error' : ''}">{message}</p>
